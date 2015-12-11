@@ -10,6 +10,7 @@ SetWorkingDir, %A_ScriptDir%
 Item := Object()
 
 ; Build menu, start from Tray level
+Menu, Tray, Tip, utim v1.0
 Menu, Tray, NoStandard
 Scan("Tray", A_ScriptDir)
 Menu, Tray, Add, Scan
