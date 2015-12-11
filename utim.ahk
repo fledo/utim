@@ -10,6 +10,7 @@ Menu, Tray, NoStandard
 Scan("Tray", A_ScriptDir)
 Menu, Tray, Add, Scan
 Menu, Tray, Add, Exit
+
 return
 
 ^+x::
@@ -28,8 +29,8 @@ Scan(parent, path) {
 			continue
 		Random, MenuId
 		Scan(MenuId, A_LoopFileFullPath)
-		if (Populate(MenuId, A_LoopFileFullPath))
-			Menu, % parent, add, % A_LoopFileName, :%MenuId%	
+		Populate(MenuId, A_LoopFileFullPath)
+		Menu, % parent, add, % A_LoopFileName, :%MenuId%
 	}	
 }
 
@@ -41,8 +42,8 @@ Populate(parent, path) {
 		Menu, % parent, add, % A_LoopFileName, Handler
 		Item[(parent), (A_LoopFileName)] := A_LoopFileFullPath
 	}
-	if (Item[(parent)])
-		return true
+	if !(Item[(parent)])	; Filler for folders only containing folders
+		Menu, % parent, add
 }
 
 ; Start menu item
@@ -54,5 +55,4 @@ Handler(ItemName, ItemPos, MenuName) {
 		Run *RunAs "cmd.exe" /C "START %target%" ; Avoids issues with file association 
 	else
 		Run, % target
-	RunAs
 }
