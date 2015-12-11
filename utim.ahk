@@ -20,15 +20,16 @@ exitapp
 Scan::
 Reload
 
-; Look for folders
+; Look for folders to create submenus
 Scan(parent, path) {
 	Loop, Files, %path%\*, D 
 	{
 		if A_LoopFileAttrib contains H,R,S
 			continue
-		Scan(A_LoopFileName, A_LoopFileFullPath)
-		if (Populate(A_LoopFileName, A_LoopFileFullPath))
-			Menu, % parent, add, % A_LoopFileName, :%A_LoopFileName%	
+		Random, MenuId
+		Scan(MenuId, A_LoopFileFullPath)
+		if (Populate(MenuId, A_LoopFileFullPath))
+			Menu, % parent, add, % A_LoopFileName, :%MenuId%	
 	}	
 }
 
