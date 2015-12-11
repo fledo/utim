@@ -1,4 +1,32 @@
-﻿#Persistent
+﻿/*	utim
+		Description:
+			Creates a tray icon menu populated by folders and files relative to the executable. 
+			Hold ctrl to run a file as administrator (via cmd.exe).
+			
+		Author:
+			fred.uggla@gmail.com
+			github.com/fledo/utim
+			
+		License:
+			utim
+			Copyright (C) 2015  Fred Uggla
+		
+			This program is free software; you can redistribute it and/or modify
+			it under the terms of the GNU General Public License as published by
+			the Free Software Foundation; either version 2 of the License, or
+			(at your option) any later version.
+		
+			This program is distributed in the hope that it will be useful,
+			but WITHOUT ANY WARRANTY; without even the implied warranty of
+			MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+			GNU General Public License for more details.
+		
+			You should have received a copy of the GNU General Public License along
+			with this program; if not, write to the Free Software Foundation, Inc.,
+			51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
+#Persistent
 #SingleInstance force
 #NoEnv 
 SetBatchLines, -1
@@ -60,7 +88,7 @@ Populate(submenu, path) {
 		Menu, % submenu, add, % A_LoopFileName, Handler
 		Item[(submenu), (A_LoopFileName)] := A_LoopFileFullPath
 	}
-	if !(Item[(parent)])	; Filler for folders only containing folders
+	if !(Item[(submenu)])	; Filler for folders only containing folders
 		Menu, % submenu, add
 }
 
