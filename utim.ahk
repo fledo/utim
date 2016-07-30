@@ -27,10 +27,15 @@
 */
 
 #Persistent
-#SingleInstance force
+#SingleInstance off
 #NoEnv 
 SetBatchLines, -1
-SetWorkingDir, %A_ScriptDir%
+
+; Set menu root dir from parameter if available
+if 1
+	Root = %1%
+else
+	Root = %A_ScriptDir%
 
 ; Contains menus as sub-arrays with file paths.
 global Item := Object()
@@ -38,7 +43,7 @@ global Item := Object()
 ; Build menu, start from Tray level
 Menu, Tray, Tip, utim v1.0
 Menu, Tray, NoStandard
-Scan("Tray", A_ScriptDir)
+Scan("Tray", Root)
 Menu, Tray, Add, Scan
 Menu, Tray, Add, Exit
 return
