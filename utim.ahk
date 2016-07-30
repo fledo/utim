@@ -30,8 +30,6 @@
 #SingleInstance force
 #NoEnv 
 SetBatchLines, -1
-SendMode Input
-FileEncoding, UTF-8
 SetWorkingDir, %A_ScriptDir%
 
 ; Contains menus as sub-arrays with file paths.
