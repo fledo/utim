@@ -106,9 +106,8 @@ Populate(submenu, path) {
 */
 Handler(ItemName, ItemPos, MenuName) {
 	target := Item[(MenuName), (ItemName)]
-	ControlDown := GetKeyState("ctrl" , "P")
-	if (ControlDown)
-		Run *RunAs "cmd.exe" /C "START %target%" ; Issues with file association using only *RunAs
+	if (GetKeyState("ctrl" , "P"))
+		Run *RunAs cmd.exe /C "START `"`" `"%target%`"", , Hide ; Circumvent *RunAs file association limitations
 	else
-		Run, % target
+		Run %target%
 }
