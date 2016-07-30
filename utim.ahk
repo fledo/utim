@@ -31,11 +31,11 @@
 #NoEnv 
 SetBatchLines, -1
 
-; Set menu root dir from parameter if available
+; Set working dir from parameter if available
 if 1
-	Root = %1%
+	SetWorkingDir, %1%
 else
-	Root = %A_ScriptDir%
+	SetWorkingDir, %A_ScriptDir%
 
 ; Contains menus as sub-arrays with file paths.
 global Item := Object()
@@ -43,7 +43,7 @@ global Item := Object()
 ; Build menu, start from Tray level
 Menu, Tray, Tip, utim v1.0
 Menu, Tray, NoStandard
-Scan("Tray", Root)
+Scan("Tray", A_WorkingDir)
 Menu, Tray, Add, Scan
 Menu, Tray, Add, Exit
 return
