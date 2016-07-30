@@ -35,7 +35,7 @@ FileEncoding, UTF-8
 SetWorkingDir, %A_ScriptDir%
 
 ; Contains menus as sub-arrays with file paths.
-Item := Object()
+global Item := Object()
 
 ; Build menu, start from Tray level
 Menu, Tray, Tip, utim v1.0
@@ -48,7 +48,7 @@ return
 Exit:
 exitapp
 
-Scan::
+Scan:
 Reload
 
 /*	Scan(parent, path)
@@ -82,7 +82,6 @@ Scan(parent, path) {
 			(path) Location of folder to scan.
 */
 Populate(submenu, path) {
-	global Item
 	Loop, Files, %path%\*, F 
 	{
 		Menu, % submenu, add, % A_LoopFileName, Handler
@@ -103,7 +102,6 @@ Populate(submenu, path) {
 			(MenuName) Name of menu containing item.
 */
 Handler(ItemName, ItemPos, MenuName) {
-	Global Item
 	target := Item[(MenuName), (ItemName)]
 	ControlDown := GetKeyState("ctrl" , "P")
 	if (ControlDown)
