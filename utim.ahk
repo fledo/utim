@@ -37,9 +37,6 @@ if 1
 else
 	SetWorkingDir, %A_ScriptDir%
 
-; Contains menus as sub-arrays with file paths.
-global Item := Object()
-
 ; Build menu, start from Tray level
 Menu, Tray, Tip, utim v1.0
 Menu, Tray, NoStandard
@@ -69,27 +66,10 @@ Scan(parent, path) {
 	{
 		if A_LoopFileAttrib contains H,R,S
 			continue
-		Random, MenuId
-		Scan(MenuId, A_LoopFileFullPath)
-		Populate(MenuId, A_LoopFileFullPath)
-		Menu, % parent, add, % A_LoopFileName, :%MenuId%
-	}
-}
-
-/*	Populate(submenu, path)
-		Description:
-			Scan path for files and attach them to submenu.
-			Save file path in array.
-		
-		Paramaters:
-			(submenu) ID of submenu for files.
-			(path) Location of folder to scan.
-*/
-Populate(submenu, path) {
-	Loop, Files, %path%\*, F 
-	{
-		Menu, % submenu, add, % A_LoopFileName, Handler
-		Item[(submenu), (A_LoopFileName)] := A_LoopFileFullPath
+		Scan(A_LoopFileFullPath, A_LoopFileFullPath)
+		Loop, Files, %A_LoopFileFullPath%\*, F 
+			Menu, % A_LoopFileDir, add, % A_LoopFileName, Handler
+		Menu, % parent, add, % A_LoopFileName, :%A_LoopFileFullPath%
 	}
 }
 
@@ -104,7 +84,7 @@ Populate(submenu, path) {
 			(MenuName) Name of menu containing item.
 */
 Handler(ItemName, ItemPos, MenuName) {
-	target := Item[(MenuName), (ItemName)]
+	target := MenuName "\" ItemName
 	if (GetKeyState("ctrl" , "P"))
 		Run *RunAs cmd.exe /C "START `"`" `"%target%`"", , Hide ; Circumvent *RunAs file association limitations
 	else
