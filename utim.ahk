@@ -50,11 +50,10 @@ Menu, Tray, Add, Update
 Menu, Tray, Add, Exit
 return
 
-Exit:
-exitapp
-
 Update:
-Reload
+Run, %A_ScriptFullPath% /restart "%1%"
+Exit:
+ExitApp
 
 /*
 Scan(Parent, Path)
