@@ -62,19 +62,27 @@ Scan(Parent, Path)
 	
 	Parent:	Name of parent menu.
 	Path:	Location of folder to scan.
+
+	Return:	True if content was found, false if empty or just empty folders.
 */
 Scan(Parent, Path) 
 {
+	local ContentFound = False
 	Loop, Files, %Path%\*, D 
 	{
 		if A_LoopFileAttrib not contains H,R,S
 		{
-			Scan(A_LoopFileFullPath, A_LoopFileFullPath)
-			Menu, % Parent, add, % A_LoopFileName, :%A_LoopFileFullPath%
+			local ContentFound = True
+			if(Scan(A_LoopFileFullPath, A_LoopFileFullPath))
+				Menu, % Parent, add, % A_LoopFileName, :%A_LoopFileFullPath%
 		}
 	}
 	Loop, Files, %Path%\*, F
+	{
+		local ContentFound = True
 		Menu, % Parent, add, % A_LoopFileName, Handler
+	}
+	return ContentFound
 }
 
 /*
