@@ -43,7 +43,7 @@ else
 
 ; Build menu, start from Tray level
 Menu, Tray, Tip, utim v1.0
-FileExist(icon.ico)
+If FileExist("utim.ico")
 	Menu, Tray, Icon, utim.ico
 Menu, Tray, NoStandard
 Menu, Tray, UseErrorLevel ; Ignore errors about empty submenus
