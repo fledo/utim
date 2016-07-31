@@ -42,7 +42,7 @@ else
 	SetWorkingDir, %A_ScriptDir%
 
 ; Build menu, start from Tray level
-Menu, Tray, Tip, utim v1.0
+Menu, Tray, Tip, utim v1.1
 If FileExist("utim.ico")
 	Menu, Tray, Icon, utim.ico
 Menu, Tray, NoStandard
