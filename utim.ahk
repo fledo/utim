@@ -51,7 +51,7 @@ Menu, Tray, Add, Exit
 return
 
 Update:
-Run, %A_ScriptFullPath% /restart "%1%"
+Run, %A_ScriptFullPath% /restart "%A_WorkingDir%"
 Exit:
 ExitApp
 
@@ -70,11 +70,11 @@ Scan(Parent, Path)
 		if A_LoopFileAttrib not contains H,R,S
 		{
 			Scan(A_LoopFileFullPath, A_LoopFileFullPath)
-			Loop, Files, %A_LoopFileFullPath%\*, F 
-				Menu, % A_LoopFileDir, add, % A_LoopFileName, Handler
 			Menu, % Parent, add, % A_LoopFileName, :%A_LoopFileFullPath%
 		}
 	}
+	Loop, Files, %Path%\*, F
+		Menu, % Parent, add, % A_LoopFileName, Handler
 }
 
 /*
@@ -88,6 +88,8 @@ Handler(ItemName, ItemPos, MenuName)
 */
 Handler(ItemName, ItemPos, MenuName) 
 {
+	if (MenuName = "Tray")
+		MenuName :=  A_WorkingDir
 	target := MenuName "\" ItemName
 	if (GetKeyState("ctrl" , "P"))
 		Run *RunAs cmd.exe /C "START `"`" `"%target%`"", , Hide 
