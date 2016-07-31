@@ -43,6 +43,7 @@ global Item := Object()
 ; Build menu, start from Tray level
 Menu, Tray, Tip, utim v1.0
 Menu, Tray, NoStandard
+Menu, Tray, UseErrorLevel ; Ignore errors about empty submenus
 Scan("Tray", A_WorkingDir)
 Menu, Tray, Add, Scan
 Menu, Tray, Add, Exit
@@ -72,7 +73,7 @@ Scan(parent, path) {
 		Scan(MenuId, A_LoopFileFullPath)
 		Populate(MenuId, A_LoopFileFullPath)
 		Menu, % parent, add, % A_LoopFileName, :%MenuId%
-	}	
+	}
 }
 
 /*	Populate(submenu, path)
@@ -90,8 +91,6 @@ Populate(submenu, path) {
 		Menu, % submenu, add, % A_LoopFileName, Handler
 		Item[(submenu), (A_LoopFileName)] := A_LoopFileFullPath
 	}
-	if !(Item[(submenu)])	; Filler for folders only containing folders
-		Menu, % submenu, add
 }
 
 /*	Handler(ItemName, ItemPos, MenuName)
