@@ -104,5 +104,5 @@ Handler(ItemName, ItemPos, MenuName)
 	if (GetKeyState("ctrl" , "P"))
 		Run *RunAs cmd.exe /C "START `"`" `"%target%`"", , Hide 
 	else
-		Run %target%
+		Run, %target%, , UseErrorLevel
 }
